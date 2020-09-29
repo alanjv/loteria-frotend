@@ -16,16 +16,15 @@ import {DatePipe} from "@angular/common";
 
 import { PredecirComponent } from './components/predecir/predecir.component';
 import { SorteosComponent } from './components/sorteos/sorteos.component';
-import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FiltroPipe } from './pipes/filtro.pipe';
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
     AppComponent,
     PredecirComponent,
     SorteosComponent,
-    LoginComponent,
     NavbarComponent,
     FiltroPipe
   ],
@@ -36,8 +35,11 @@ import { FiltroPipe } from './pipes/filtro.pipe';
     FormsModule,
     NgxPaginationModule,
     NgxSpinnerModule,
-    BrowserAnimationsModule
-    
+    BrowserAnimationsModule,
+    AuthModule.forRoot({
+      domain: 'dev-6y0sn8t0.us.auth0.com',
+      clientId: 'b595Xa1yGQUpxzpzEk3ihH3xZaOYi2MF'
+    }),
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="auth.loggedIn">
     <h3>Ingresar Sorteo</h3>
     <form>
         <div class="form-row">
@@ -65,8 +65,8 @@
                                 <td>{{sorteo.numero}}</td>
                                 <td>{{sorteo.jornada}}</td>
                                 <td>{{sorteo.fecha | slice:0:10}}</td>
-                                <td><button (click)="editarRegistro(sorteo)" type="button" class="btn btn-info"><i class="fa fa-edit" ></i></button></td>
-                                <td><button (click)="borrarRegistro(sorteo)" type="button" class="btn btn-danger"><i class="fa fa-trash" ></i></button></td>
+                                <td><button *ngIf="auth.loggedIn" (click)="editarRegistro(sorteo)" type="button" class="btn btn-info"><i class="fa fa-edit" ></i></button></td>
+                                <td><button *ngIf="auth.loggedIn" (click)="borrarRegistro(sorteo)" type="button" class="btn btn-danger"><i class="fa fa-trash" ></i></button></td>
 
                             </tr>
 

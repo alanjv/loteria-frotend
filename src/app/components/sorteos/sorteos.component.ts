@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { SorteosService } from '../../services/sorteos.service';
 import { Sorteo } from '../../models/sorteo';
@@ -25,7 +26,7 @@ export class SorteosComponent implements OnInit {
     fecha: ''
   };
 
-  constructor(private sorteoService: SorteosService) { }
+  constructor(private sorteoService: SorteosService, public auth:AuthService) { }
 
   ngOnInit(): void {
     this.obtenerSorteos();
