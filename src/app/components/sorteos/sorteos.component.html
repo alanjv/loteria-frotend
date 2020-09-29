@@ -1,1 +1,83 @@
-<p>sorteos works!</p>
+<div class="container">
+    <h3>Ingresar Sorteo</h3>
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">Número</label>
+                <input type="text" class="form-control" name="numero " [(ngModel)]="sorteo.numero">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputState">Jornada</label>
+                <select name="jornada" [(ngModel)]="sorteo.jornada" class="form-control">
+              <option selected>Seleccione...</option>
+              <option >Maniana</option>
+              <option >Tarde</option>
+              <option>Noche</option>
+            </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputZip">Fecha</label>
+                <input type="text" class="form-control" name="fecha" [(ngModel)]="sorteo.fecha">
+            </div>
+        </div>
+        <div class="form-group">
+
+        </div>
+        <button class="btn btn-success" style="margin-left: 20px" [disabled]="boton" (click)="editar ? actualizarSorteo(sorteo) : agregarSorteo(sorteo)">Guardar</button>
+        <button class="btn btn-danger" style="margin-left: 20px" (click)="cancelar()">Cancelar</button>
+    </form>
+</div>
+<div class="container">
+    <br>
+    <h3 class="text-center">Últimos sorteos registrados</h3>
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <input type="text" class="form-control" name="filterNumber" placeholder="Buscar por jornada: Tarde, Noche  o por fecha: 2020-08-10" [(ngModel)]="filtroNumero" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Número</th>
+                                <th scope="col">Jornada</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let sorteo of sorteos | filtro:filtroNumero | paginate: { itemsPerPage: 10, currentPage: paginaActual } , let i=index ">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{sorteo.numero}}</td>
+                                <td>{{sorteo.jornada}}</td>
+                                <td>{{sorteo.fecha | slice:0:10}}</td>
+                                <td><button (click)="editarRegistro(sorteo)" type="button" class="btn btn-info"><i class="fa fa-edit" ></i></button></td>
+                                <td><button (click)="borrarRegistro(sorteo)" type="button" class="btn btn-danger"><i class="fa fa-trash" ></i></button></td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="paginaActual= $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
