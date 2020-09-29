@@ -1,1 +1,218 @@
-<p>predecir works!</p>
+<div class="container">
+
+    <div class="jumbotron animated fadeIn">
+        <h3 class="text-center">Predicción de sorteos de La Diaria!</h3>
+        <p class="lead">Puedes escoger si quieres usar todos los sorteos almacenados en nuestra base de datos o solo seleccionar una jornada en específico para realizar una predicción, recuerda que también puedes ingresar datos de los sorteos más recientes.</p>
+    </div>
+
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+        <p style="font-size: 20px; color: white">{{mensaje}}</p>
+    </ngx-spinner>
+
+
+    <div class="col-12">
+
+        <div [hidden]="!modal" class="car">
+            <div class="card-body">
+                <h4>Posibles Resultados</h4>
+                <p>Sorteos tomados: {{prediccion.jornada_prediccion}}</p>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Intervalo</th>
+                            <th scope="col">Número</th>
+                            <th scope="col">Probabilidad</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>0-09</td>
+                            <td>{{prediccion.numeros[1].numero}}</td>
+                            <td>{{prediccion.numeros[1].probabilidad| slice:0:4}}%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>10-19</td>
+                            <td>{{prediccion.numeros[2].numero}}</td>
+                            <td>{{prediccion.numeros[2].probabilidad| slice:0:4}}%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>20-29</td>
+                            <td>{{prediccion.numeros[3].numero}}</td>
+                            <td>{{prediccion.numeros[3].probabilidad| slice:0:4}}%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>30-09</td>
+                            <td>{{prediccion.numeros[4].numero}}</td>
+                            <td>{{prediccion.numeros[4].probabilidad| slice:0:4}}%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>40-49</td>
+                            <td>{{prediccion.numeros[5].numero}}</td>
+                            <td>{{prediccion.numeros[5].probabilidad | slice:0:4}}%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td>50-59</td>
+                            <td>{{prediccion.numeros[6].numero}}</td>
+                            <td>{{prediccion.numeros[6].probabilidad | slice:0:4}}%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">7</th>
+                            <td>60-69</td>
+                            <td>{{prediccion.numeros[7].numero}}</td>
+                            <td>{{prediccion.numeros[7].probabilidad | slice:0:4}}%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">8</th>
+                            <td>70-79</td>
+                            <td>{{prediccion.numeros[8].numero}}</td>
+                            <td>{{prediccion.numeros[8].probabilidad | slice:0:4}}%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">9</th>
+                            <td>80-89</td>
+                            <td>{{prediccion.numeros[9].numero}}</td>
+                            <td>{{prediccion.numeros[9].probabilidad | slice:0:4}}%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">10</th>
+                            <td>90-99</td>
+                            <td>{{prediccion.numeros[10].numero}}</td>
+                            <td>{{prediccion.numeros[10].probabilidad | slice:0:4}}%</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Sorteos utilizados para la predicción</td>
+                            <td>{{total}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <button (click)="guardarPrediccion(prediccion)" type="button" class="btn btn-success btn-sm ">Guardar</button> &nbsp;
+                <button (click)="cerrar()" type="button" class="btn btn-danger btn-sm ">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div [hidden]="modal" class="card animated fadeIn">
+        <div class="card-body">
+            <button type="button" (click)="opciones()" class="btn btn-success btn-lg btn-block">Realizar predicción</button>
+            <div class="aanimated fadeIn " [hidden]="!seleccion">
+                <br>
+                <h4 class="text-center">Que Sorteos desea tomar</h4>
+                <br>
+                <div class="card-deck">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Todos</h5>
+                            <p class="card-text">Se toman en cuenta todos los sorteos disponibles en la base de datos.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small><button (click)="pronosticar('todos')" type="button" class="btn btn-success btn-sm btn-block">Empezar</button> </small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Mañana</h5>
+                            <p class="card-text">Se toman en cuenta únicamente los sorteos registrados a las 11:00 am</p>
+                        </div>
+                        <div class="card-footer">
+                            <small><button (click)="pronosticar('maniana')" type="button" class="btn btn-success btn-sm btn-block">Empezar</button> </small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Tarde</h5>
+                            <p class="card-text">Se toman en cuenta únicamente los sorteos registrados a las 2:00 pm</p>
+                        </div>
+                        <div class="card-footer">
+                            <small><button (click)="pronosticar('tarde')" type="button" class="btn btn-success btn-sm btn-block">Empezar</button> </small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Noche</h5>
+                            <p class="card-text">Se toman en cuenta únicamente los sorteos registrados a las 9:00 pm</p>
+                        </div>
+                        <div class="card-footer">
+                            <small><button (click)="pronosticar('noche')" type="button" class="btn btn-success btn-sm btn-block">Empezar</button> </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-6">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4>Última Predicción</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Número</th>
+                                <th scope="col">Probabilidad</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let prediccion of Prediccion; let i=index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{prediccion.numero_prediccion}}</td>
+                                <td>{{prediccion.probabilidad | slice:0:4}}%</td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-6">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4>Últimos sorteos registrados</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Número</th>
+                                <th scope="col">Jornada</th>
+                                <th scope="col">Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let sorteo of ultimosSorteos; let i=index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{sorteo.numero}}</td>
+                                <td>{{sorteo.jornada}}</td>
+                                <td>{{sorteo.fecha | slice:0:10}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -5,6 +5,9 @@ import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {DatePipe} from "@angular/common";
 
 
 
@@ -31,9 +34,12 @@ import { FiltroPipe } from './pipes/filtro.pipe';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
+    
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
