@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PredecirService {
-  URL = 'http://localhost:4000/prediccion'
+  URL = 'http://54.166.206.134:4000/prediccion'
 
   constructor(private http: HttpClient) { }
 
