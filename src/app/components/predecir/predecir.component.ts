@@ -96,7 +96,7 @@ export class PredecirComponent implements OnInit {
     this.obtenerSorteos();
     this.obtenerPrediccion();
   }
-  
+
   obtenerSorteos(){
     this.predecirService.getSorteos().subscribe(
       res => this.ultimosSorteos = res
@@ -106,22 +106,21 @@ export class PredecirComponent implements OnInit {
 
   obtenerPrediccion(){
     this.predecirService.getPrediccion().subscribe(
-      res =>{
+      res => {
         this.Prediccion = res;
         this.jornada = this.Prediccion.jornada;
       }
     );
   }
 
-  pronosticar(valor:string){
+  pronosticar(valor: string){
     if(valor === 'todos'){
       this.seleccion = false;
       this.prediccion.jornada_prediccion = valor;
       this.spinner();
       this.mensaje = 'Obteniendo Sorteos';
       this.predecirService.getSorteosTodos().subscribe(
-        res =>{
-          console.log(this.sorteos);
+        res => {
           this.sorteos = res;
           this.ordenarSorteos(this.sorteos);
         }
@@ -134,8 +133,9 @@ export class PredecirComponent implements OnInit {
       this.prediccion.jornada_prediccion = valor;
       this.predecirService.getSorteosJornada(valor).subscribe(
         res => {
+          
           this.sorteos = res;
-          console.log(this.sorteos);
+          
           this.ordenarSorteos(this.sorteos);
         }
       );
@@ -155,64 +155,55 @@ export class PredecirComponent implements OnInit {
   }
   ordenarSorteos(sorteos: any){
     
-    this.sorteos = sorteos;
+    
     this.mensaje = 'Ordenando Sorteos';
     for (var i = 0; i < sorteos.length ; i++) {
-      if(sorteos[i].numero>=0 && sorteos[i].numero<=9){
+      
+      if(sorteos[i].numero >= 0 && sorteos[i].numero <= 9){
         const numero = sorteos[i].numero;
         this.i09.push(numero);
         this.contarintervalos(i);
-
-      } else if(sorteos[i].numero>=10 && sorteos[i].numero<=19){
+      } else if(sorteos[i].numero >= 10 && sorteos[i].numero <= 19){
         const numero = sorteos[i].numero;
         this.i1019.push(numero);
-        //console.log(this.i1019);
         this.contarintervalos(i);
-
       }  else if(sorteos[i].numero>=20 && sorteos[i].numero<=29){
         const numero = sorteos[i].numero;
         this.i2029.push(numero);
-        //console.log(this.i2029);
         this.contarintervalos(i);
       } else if(sorteos[i].numero>=30 && sorteos[i].numero<=39){
         const numero = sorteos[i].numero;
         this.i3039.push(numero);
-        //console.log(this.i3039);
       }else if(sorteos[i].numero>=40 && sorteos[i].numero<=49){
         const numero = sorteos[i].numero;
         this.i4049.push(numero);
-        //console.log(this.i4049);
         this.contarintervalos(i);
       } else if(sorteos[i].numero>=50 && sorteos[i].numero<=59){
         const numero = sorteos[i].numero;
         this.i5059.push(numero);
-        //console.log(this.i5059);
       } else if(sorteos[i].numero>=60 && sorteos[i].numero<=69){
         const numero = sorteos[i].numero;
         this.i6069.push(numero);
-        //console.log(this.i6069);
         this.contarintervalos(i);
       }else if(sorteos[i].numero>=70 && sorteos[i].numero<=79){
         const numero = sorteos[i].numero;
         this.i7079.push(numero);
-        //console.log(this.i7079);
         this.contarintervalos(i);
       }else if(sorteos[i].numero>=80 && sorteos[i].numero<=89){
         const numero = sorteos[i].numero;
         this.i8089.push(numero);
-        //console.log(this.i8089);
         this.contarintervalos(i);
       } else if (sorteos[i].numero >= 90 && sorteos[i].numero <= 99){
         const numero = sorteos[i].numero;
         this.i9099.push(numero);
-       // console.log(this.i9099);
         this.contarintervalos(i);
       }
     }
   }
 
   contarintervalos(i){
-    if(i === this.sorteos.length-1){
+    console.log(i);
+    if(i !== this.sorteos.length+1){
       this.mensaje ='Calculando Probabilidades';
       delete this.prediccion.idPredicciones;
       this.total = this.i09.length+this.i1019.length+this.i2029.length+this.i3039.length+this.i4049.length+this.i5059.length+this.i6069.length+this.i7079.length+this.i8089.length+this.i9099.length;
@@ -227,7 +218,6 @@ export class PredecirComponent implements OnInit {
       this.prediccion.numeros[9].probabilidad = stringify((this.i8089.length/this.total)*100);
       this.prediccion.numeros[10].probabilidad = stringify( (this.i9099.length/this.total)*100);
 
-      
       var date = new Date();
      
       this.prediccion.fecha_prediccion = this.datePipe.transform(date,"yyyy-MM-dd");

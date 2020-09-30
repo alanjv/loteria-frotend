@@ -6,7 +6,7 @@ import { Sorteo } from '../models/sorteo';
   providedIn: 'root'
 })
 export class SorteosService {
-  URL = 'http://54.166.206.134:4000/sorteos';
+  URL = 'http://localhost:4000/sorteos';
 
   constructor(private http: HttpClient) { }
 
