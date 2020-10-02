@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PredecirService {
-  URL = 'http://localhost:4000/prediccion'
+  URL = 'https://api.loteriahn.gq/prediccion'
 
   constructor(private http: HttpClient) { }
 

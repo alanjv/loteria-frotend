@@ -20,6 +20,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FiltroPipe } from './pipes/filtro.pipe';
 import { AuthModule } from '@auth0/auth0-angular';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,7 @@ import { AuthModule } from '@auth0/auth0-angular';
     BrowserAnimationsModule,
     AuthModule.forRoot({
       domain: 'dev-6y0sn8t0.us.auth0.com',
-      clientId: 'b595Xa1yGQUpxzpzEk3ihH3xZaOYi2MF'
+      clientId: 'b595Xa1yGQUpxzpzEk3ihH3xZaOYi2MF',
     }),
   ],
   providers: [DatePipe],

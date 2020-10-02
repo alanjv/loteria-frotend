@@ -202,7 +202,7 @@ export class PredecirComponent implements OnInit {
   }
 
   contarintervalos(i){
-    console.log(i);
+    
     if(i !== this.sorteos.length+1){
       this.mensaje ='Calculando Probabilidades';
       delete this.prediccion.idPredicciones;
